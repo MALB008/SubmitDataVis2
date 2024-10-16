@@ -1,0 +1,57 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": "container",
+    "height": 350,
+    "data": {
+      "url": "https://raw.githubusercontent.com/MALB008/Visualisation2/refs/heads/main/summercropsdataproccessed.csv",
+      "format": {"type": "csv"}
+    },
+    "config": {
+      "axis": {
+        "labelFontSize": 17,
+        "titleFontSize": 18,
+        "labelFont": "serif",
+        "titleFont": "serif",
+        "grid": false
+      },
+      "legend": {
+        "labelFontSize": 17,
+        "titleFontSize": 18,
+        "labelFont": "serif",
+        "titleFont": "serif"
+      },
+      "view": {"stroke": null}
+    },
+    "transform": [
+      {"filter": "datum.Year == 2024"},
+      {
+        "filter": "(datum.Category === 'Grain sorghum' ||  datum.Category === 'Rice' || datum.Category === 'Cotton lint' || datum.Category === 'Corn' || datum.Category === 'Soybeans' || datum.Category === 'Sunflower')"
+      },
+      {"calculate": "datum.value /100", "as": "hectares"}
+    ],
+    "mark": {
+        "type": "bar",
+        "size": 30  
+      },
+    "encoding": {
+      "x": {
+        "field": "Category",
+        "type": "nominal",
+        "title": "Summer Crops",
+        "axis": {"grid": false}
+      },
+      "y": {
+        "field": "hectares",
+        "type": "quantitative",
+        "title": "Hectares (Millions)"
+      },
+      "color": {
+        "condition": {"test": "datum.value === '622.0'", "value": "#DC267F"},
+        "value": "#3456AE"
+      },
+      "tooltip": [
+        {"field": "Category", "type": "nominal"},
+        {"field": "hectares", "type": "quantitative", "title": "Hectares", "format": ".2f"}
+      ]
+    }
+  }

@@ -1,0 +1,142 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/MALB008/Visualisation2/refs/heads/main/commodityValue.csv"
+  },
+  "config": {
+    "axis": {
+      "labelFontSize": 17,
+      "titleFontSize": 18,
+      "labelFont": "serif",
+      "titleFont": "serif"
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 14,
+      "labelFont": "serif",
+      "titleFont": "serif"
+
+    },
+    "view": {
+      "stroke": ""
+    }
+  },
+  "width": 400,
+  "height": 400,
+  "transform": [
+    {
+      "filter": "datum.Category == 'Animal Products'"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "quantitative",
+      "axis": {
+        "title": "Year",
+        "format": "d"  
+      }
+    }
+  },
+  "layer": [
+    {
+      "encoding": {
+        "color": {
+          "field": "Commodity",
+          "type": "nominal",
+          "title": "Animal Product",
+          "scale":{
+            "scheme": "dark2"
+          }
+        },
+        "y": {
+          "field": "Value",
+          "type": "quantitative",
+          "title": "Production Value (in Millions of $)"
+        }
+      },
+      "layer": [
+        {
+          "mark": "line"
+        },
+        {
+          "transform": [
+            {
+              "filter": {
+                "param": "hover",
+                "empty": false
+              }
+            },
+            {
+              "filter": "datum.Category == 'Animal Products'"
+            }
+          ],
+          "mark": "point"
+        }
+      ]
+    },
+    {
+      "transform": [
+        {
+          "pivot": "Commodity",
+          "value": "Value",
+          "groupby": [
+            "Year"
+          ]
+        }
+      ],
+      "mark": "rule",
+      "encoding": {
+        "opacity": {
+          "condition": {
+            "value": 1,
+            "param": "hover",
+            "empty": false
+          },
+          "value": 0
+        },
+        "tooltip": [
+          {
+            "field": "Year",
+            "type": "quantitative",
+            "format":",.2f"
+          },
+          {
+            "field": "Eggs",
+            "type": "quantitative",
+            "format":",.2f"
+          },
+          {
+            "field": "Honey and beeswax",
+            "type": "quantitative",
+            "format":",.2f"
+          },
+          {
+            "field": "Milk",
+            "type": "quantitative",
+            "format":",.2f"
+          },
+          {
+            "field": "Wool",
+            "type": "quantitative",
+            "format":",.2f"
+          }
+        ]
+      },
+      "params": [
+        {
+          "name": "hover",
+          "select": {
+            "type": "point",
+            "fields": [
+              "Year"
+            ],
+            "nearest": true,
+            "on": "pointerover",
+            "clear": "pointerout"
+          }
+        }
+      ]
+    }
+  ]
+}

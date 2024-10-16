@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+    <script src="vega_lite_vis.js"></script>
+    <title>First Vega-Lite graph</title>
+    <style>
+        /* Full-page grid layout */
+        body {
+            background-color: #d1d1d1;
+            padding-left: 35px;
+            padding-right: 35px;
+
+
+        }
+
+        * {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .heading1 {
+            font-size: 40px;
+            color: #3456AE;
+            font-weight: 600;
+            text-align: center;
+
+        }
+
+        .heading2 {
+            font-size: 25px;
+            color: #3456AE;
+            font-weight: 600;
+            margin-bottom: 5px;
+            /* padding-left: 30px; */
+
+        }
+
+        .titlepara {
+            font-size: 18px;
+            color: #3c4e7a;
+            height: 120px;
+            /* background-color: pink; */
+            /* padding-left: 30px; */
+            max-width: 530px;
+
+            text-align: center;
+
+        }
+
+        .paragraphs {
+            font-size: 18px;
+            color: #3c4e7a;
+            max-width: 500px;
+            height: 100px;
+            margin-bottom: 5px;
+
+
+        }
+
+        .titlebox {
+            grid-row-start: 1;
+            grid-row-end: 1;
+            grid-column-start: 1;
+            grid-column-end: 4;
+            height: 200px;
+            box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+
+
+        }
+
+        .container {
+            display: grid;
+            grid-template-rows: 100px, 100px, 100px 100px;
+            grid-template-columns: 100px, 100px, 100px;
+            overflow: scroll;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .item {
+            background-color: white;
+            margin: 10px;
+            padding: 5px;
+            padding-bottom: 10px;
+
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 10px;
+            box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+
+        }
+
+        .titleItem {
+            background-color: white;
+            margin: 20px;
+            padding: 10px;
+            padding-left: 17px;
+            padding-right: 17px;
+            border-radius: 10px;
+            box-shadow: 10px 10px 20px rgba(1, 1, 1, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            margin: 10px;
+
+        }
+
+        .stackedbarchart {
+            grid-row-start: 2;
+            grid-row-end: 2;
+            grid-column-start: 1;
+            grid-column-end: 3;
+
+        }
+
+        .australiamap {
+            grid-row-start: 2;
+            grid-row-end: 3;
+            grid-column-start: 3;
+            grid-column-end: 4;
+            min-width: 700px ;
+
+        }
+
+        .worldmap {
+            grid-row-start: 3;
+            grid-row-end: 4;
+            grid-column-start: 3;
+            grid-column-end: 4;
+
+
+        }
+
+        .isotype {
+            grid-row-start: 3;
+            grid-row-end: 4;
+            grid-column-start: 1;
+            grid-column-end: 2;
+
+        }
+
+        .donutchart {
+            grid-row-start: 3;
+            grid-row-end: 3;
+            grid-column-start: 2;
+            grid-column-end: 2;
+
+        }
+
+        .footer {
+            grid-row-start: 4;
+            grid-row-end: 5;
+            grid-column-start: 1;
+            grid-column-end: 5;
+            text-align: center;
+            align-items: center;
+            padding-top: 5px;
+            padding-bottom: 5px;
+
+            /* height: 100px;
+            margin: 25px; */
+            /* text-align: left;
+            font-size: 18;
+            color: black;
+            font-weight: 600;
+            margin-top: 60px;
+            margin-bottom: 60px; */
+
+
+        }
+
+        .chart {
+            flex: 1;
+            max-width: 100%;
+
+
+        }
+
+        a {
+            color: rgb(29, 29, 29);
+        }
+
+        button {
+            font-size: 30px;
+        }
+
+        #container2 {
+            display: flex;
+            flex-direction: column;
+        }
+        .containscharts{
+            display: flex;
+            flex:1;
+            max-width: 100%;
+
+
+            
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="titlebox titleItem">
+            <div class="heading1"> Australian Farming In Focus </div>
+            <div class="paragraphs" style="text-align: center; margin-top: 15px;">
+                This data visualization offers a comprehensive look into the Australian farming sector, highlighting its significance as the second largest industry in the country. By examining crop yields, livestock statistics, and water usage, it becomes evident how Australia's agricultural landscape is shaped by climatic conditions and global competitiveness.
+            </div>
+
+        </div>
+
+        <div class="item stackedbarchart" >
+            <div class="heading2"> Yield in Hectares For Summer and Winter Crops - 2023  </div>
+            <div class="paragraphs">
+                Australian winter crops yield significantly more than summer crops due to the country's high summer temperatures and the soil's lower moisture retention.
+                </div>
+
+            <div class="containscharts"> 
+                <div class="chart" id="sgroupedbarchart" >
+
+                </div>
+                <div class="chart" id="wgroupedbarchart">
+    
+                </div>
+            </div>
+            <div style="position: absolute; bottom: 310px; right: 110px; max-width: 100px; background-color: #d1d1d1; font-size: 12px; text-align: center; padding: 4px; border-radius: 10px;">
+                Wheat is the most dominant crop by land area, with a recent export value of $10.2B, making up 13.7% of the global market.
+            </div>
+            <div style="position: absolute; bottom: 310px; left: 280px; max-width: 80px; background-color: #d1d1d1; font-size: 12px; text-align: center; padding: 4px; border-radius: 10px;">
+                Grain sorghum is the main summer cereal crop. Its grown in northern NSW.
+            </div>
+
+        </div>
+
+
+        <div class="item australiamap">
+            <div class="heading2">Yield (hg/ha) of Crops Globally - 2021</div>
+            <div class="paragraphs">
+                The charts compares the yield of various crops including maize, wheat, sorgum, rice, potatoes. 
+                <br/> 
+                It shows that Australia is a competitive producer of potatoes.
+                        </div>
+            <div class="chart" id="choropleth"></div>
+        </div>
+
+        <div class="item isotype">
+            <div class="heading2">Livestock Slaughtered</div>
+            <div class="paragraphs">
+                This graph excludes poultry, as its numbers are much higher than other livestock. In the June 2024 quarter, chicken slaughter rose 2.6% to 186.8 million.
+            </div>
+            <div class="chart" id="isotype"> Chart </div>
+            <div style="position: absolute; bottom: 310px; right: 70px; max-width:90px; background-color: #d1d1d1; font-size: 13px; text-align: center; padding: 4px; border-radius: 10px;">
+                Sheep have the second-highest slaughter numbers. 
+                <br/>
+                <br/>
+                Use the slider to view annual/decreases increases in slaughter.            </div>
+
+        </div>
+
+        <div class="item donutchart">
+            <div class="heading2"> Water Usage - 2023</div>
+            <div class="paragraphs">
+                This chart illustrates the usage of water in agriculture. It explores how water resources are allocated across farming sectors.
+
+            </div>
+            <div class="chart" id="donut"> Chart </div>
+
+            <div style="position: absolute; bottom: 90px; right: 100px; max-width: 100px; background-color: #d1d1d1; font-size: 12px; text-align: center; padding: 4px; border-radius: 10px;">
+
+            </div>
+
+        </div>
+
+
+        <div class="item worldmap">
+            <div class="heading2"> Production Value of Various Farming Products </div>
+            <div class="paragraphs">
+                This visualization compares Australia's crop yield to global averages. It presents data on how
+                Australian farms perform in relation to other countries.
+            </div>
+            <select name="linecharts" id="linechartsdivs"  onchange="handleSelection(this.value)">
+                <option value="crop">Animal Products</option>
+                <option value="animal">Crops</option>
+                <option value="hort">Animals Slaughtered</option>
+              </select>
+
+            <div class="containsLinecharts" style="display: flex; flex: 1;">
+                <div id="div1">
+                    <!-- <div >Animal Products</div> -->
+                    <div class="chart" id="testing"></div>
+                </div>
+                <div id="div2">
+                    <!-- <div>Crop</div> -->
+                    <div class="chart" id="animalproduct"></div>
+                </div>
+                <div id="div3" >
+                    <!-- <div>Animal Slaughtered</div> -->
+                    <div class="chart" id="testing2"></div>
+                </div>
+
+            </div>
+            <div style="position: absolute; bottom: 80px; right: 20px; max-width: 150px; background-color: #d1d1d1; font-size: 13px; text-align: center; padding: 4px; border-radius: 10px;">
+                In terms of production value:
+                <br/>
+                <br/>
+
+                Milk is the leading animal product.
+                <br/>
+                <br/>
+
+                Grains, oilseeds, and pulses are the leading crop product.
+                <br/>
+                <br/>
+
+
+                Cattle are the leading product when it comes to animal slaughter. 
+
+</div>        </div>
+
+        <div class="item footer" style="height: 210px;">
+
+            <div class="paragraphs" style="text-align: center;">
+                It is evident that the demand for farming products continues to expand and that success in this landscape is a highly complex matter to forecast. As such, underscoring the need to analyse this sector's critical role in both the national economy and global markets.
+
+            </div>
+            <div class="paragraphs" style="min-width: none; width: none; text-align: center;">
+                Sources: <a href="https://www.agriculture.gov.au/abares/data">ABARES - DAFF</a>, <a
+                    href="https://www.kaggle.com/datasets/patelris/crop-yield-prediction-dataset?select=yield_df.csv">Kaggle</a>, <a
+                    href="https://www.abs.gov.au/statistics/industry/agriculture">Agriculute | Australian Bureau of
+                    Statistics</a>
+                <br />
+                Author: Mariam Albir
+                <br />
+
+                Date: 14/10/24
+                <br />
+                Unit: FIT3079
+            </div>
+        </div>
+        </div>
+
+        <script>
+            // Function to handle the dropdown selection
+            function handleSelection(selectedValue) {
+                // Hide all divs
+                document.getElementById("div1").style.display = 'none';
+                document.getElementById("div2").style.display = 'none';
+                document.getElementById("div3").style.display = 'none';
+
+    
+                // Show the corresponding div based on the selected option
+                if (selectedValue === 'animal') {
+                    const div1 = document.getElementById("div1");
+                    div1.style.display = 'block'; // Show div1
+                    div1.style.flex = '1'; 
+
+                } else if (selectedValue === 'crop') {
+                    const div2 = document.getElementById("div2");
+                    div2.style.display = 'block'; // Show div2
+                    div2.style.flex = '1';
+
+                    if (window.vega) {
+                const vegaChart = vega.view('#animalproduct');
+                vegaChart.resize();
+                // If your Vega-Lite chart is initialized differently, use:
+                // vegaChart.update();
+            }
+
+
+
+                } else if (selectedValue === 'hort') {
+                    const div3 = document.getElementById("div3");
+                    div3.style.display = 'block'; // Show div3
+                    div3.style.flex = '1'; // Set background to red
+
+                }
+            }
+    
+            // Optionally, call handleSelection to show the default div (like div1) on page load
+            document.addEventListener('DOMContentLoaded', function () {
+                handleSelection('crop');  // Default to "Animal" selection, showing div1
+            });
+        </script>
+
+
+
+
+</body>
+
+</html>

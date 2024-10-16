@@ -1,0 +1,111 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A simple donut chart with embedded data.",
+  "width": "container",
+  "height": "container",
+  "config": {
+    "axis": {
+      "labelFontSize": 17,
+      "titleFontSize": 17,
+      "labelFont": "serif",
+      "titleFont": "serif"
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 14,
+      "labelFont": "serif",
+      "titleFont": "serif"
+    },
+    "view": {
+      "stroke": null
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "category": "Grazing Pastures",
+        "value": 495779
+      },
+      {
+        "category": "Cereals crops",
+        "value": 320093
+      },
+      {
+        "category": "Hay Pastures",
+        "value": 210391
+      },
+      {
+        "category": "Cotton",
+        "value": 197401
+      },
+      {
+        "category": "Fruit/Nut",
+        "value": 196906
+      },
+      {
+        "category": "Sugar cane",
+        "value": 157521
+      },
+      {
+        "category": "Grapevines",
+        "value": 130534
+      },
+      {
+        "category": "Vegetables",
+        "value": 98785
+      },
+      {
+        "category": "Rice",
+        "value": 45084
+      }
+    ]
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "arc",
+        "innerRadius": 130,
+        "stroke": "white",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "theta": {
+          "field": "value",
+          "type": "quantitative",
+          "stack": true
+        },
+        "color": {
+          "field": "category",
+          "type": "nominal",
+          "scale": {
+            "range": [
+              "#DC2638",
+              "#785EF0",
+              "#FFB000",
+              "#003366",
+              "#2E9AFF",
+              "#8E03A4",
+              "#365CBF",
+              "#FF60E2",
+              "#96064C"
+            ]
+          },
+          "title": "Agricultural Land"
+        },
+        "tooltip": [
+          {
+            "field": "category",
+            "type": "nominal",
+            "title": "Agricultural Land Use"
+          },
+          {
+            "field": "value",
+            "type": "quantitative",
+            "title": "Megalitres",
+            "format":","
+          }
+        ]
+      }
+    }
+  ]
+}

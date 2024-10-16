@@ -1,0 +1,103 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://raw.githubusercontent.com/MALB008/Visualisation2/refs/heads/main/commodityValue.csv"
+    },
+    "width": 400,
+    "height": 400,
+    "config": {
+      "axis": {
+        "labelFontSize": 17,
+        "titleFontSize": 18,
+        "labelFont": "serif",
+        "titleFont": "serif"
+      },
+      "legend": {
+        "labelFontSize": 12,
+        "titleFontSize": 14,
+        "labelFont": "serif",
+        "titleFont": "serif"
+  
+      },
+      "view": {
+        "stroke": ""
+      }
+    },
+
+  
+    "transform": [
+      {"filter": "datum.Category == 'Grain, Seed, Fiber Crops'"}
+    
+  
+      ],
+    "encoding": {"x": {"field": "Year", "type": "quantitative", "axis": {
+        "title": "Year",
+        "format": "d"  
+      }}},
+    "layer": [
+      {
+        "encoding": {
+          "color": {"field": "Commodity", "type": "nominal", "title": "Crop",           "scale":{
+            "scheme": "dark2"
+          }
+        },
+          "y": {"field": "Value", "type": "quantitative",  "title": "Production Value (in Millions of $)"
+        }
+        },
+        "layer": [
+          {"mark": "line"},
+          {
+            "transform": [
+              {"filter": {"param": "hover", "empty": false}},
+              {"filter": "datum.Category == 'Grain, Seed, Fiber Crops'"}
+            ],
+            "mark": "point"
+  
+            
+          }
+        ]
+      },
+      {
+        "transform": [
+          {"pivot": "Commodity", "value": "Value", "groupby": ["Year"]}
+        ],
+        "mark": "rule",
+        "encoding": {
+          "opacity": {
+            "condition": {"value": 0.3, "param": "hover", "empty": false},
+            "value": 0
+          },
+  
+            
+  
+        
+         "tooltip":[
+                {"field": "Other cereal grains", "type": "quantitative", "format":",.2f"},
+                {"field": "Canola", "type": "quantitative", "format":",.2f"},
+                {"field": "Other oilseeds", "type": "quantitative", "format":",.2f"},
+                {"field": "Chickpeas", "type": "quantitative", "format":",.2f"},
+                {"field": "Lentils", "type": "quantitative","format":",.2f"},
+                {"field": "Lupins", "type": "quantitative","format":",.2f"},
+                {"field": "Grains, oilseeds and pulses", "type": "quantitative","format":",.2f"},
+                {"field": "Cotton lint", "type": "quantitative","format":",.2f"},
+                {"field": "Sugar cane", "type": "quantitative","format":",.2f"},
+                {"field": "Other crops", "type": "quantitative","format":",.2f"}
+              ]
+  
+  
+        },
+        "params": [
+          {
+            "name": "hover",
+            "select": {
+              "type": "point",
+              "fields": ["Year"],
+              "nearest": true,
+              "on": "pointerover",
+              "clear": "pointerout"
+            }
+          }
+        ]
+      }
+    ]
+  }
